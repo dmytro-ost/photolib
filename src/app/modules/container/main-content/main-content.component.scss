@@ -1,0 +1,24 @@
+.header {
+    position: fixed;
+    width: 100%;
+}
+
+.header-container {
+    width: 100%;
+    margin: 0 auto;
+    max-width: 1200px;
+    display: flex;
+    justify-content: space-around;
+
+    button {
+        width: 150px;
+    }
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: 80px;
+    display: flex;
+    justify-content: space-between;
+}
