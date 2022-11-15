@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { first, Observable } from 'rxjs';
+import { first } from 'rxjs';
 import { Photo } from 'src/app/models/photo.model';
 import { PhotoService } from 'src/app/services/photo.service';
 
@@ -19,14 +19,17 @@ export class PhotosComponent implements OnInit {
     this.loadPhotos();
   }
 
-  public loadPhotos() {
-    this.photoService.getPhotoList()
-    .pipe(first())
-    .subscribe(photos => this.photos = [...this.photos, ...photos])
-  }
-
-  public onPhotoClick(photoId: string){
+  public onPhotoClick(photoId: string) {
     console.log(photoId);
   }
-  
+
+  public onScrollDown() {
+    this.loadPhotos();
+  }
+
+  private loadPhotos() {
+    this.photoService.getPhotoList()
+      .pipe(first())
+      .subscribe(photos => this.photos = [...this.photos, ...photos]);
+  }
 }

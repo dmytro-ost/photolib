@@ -1,4 +1,7 @@
-<app-photos-list
-    [photos] = "photos"
-    (photoClick) = onPhotoClick($event)>
-</app-photos-list>
+<app-infinite-scroll (scrolled)="onScrollDown()" style="height: 400px;">
+    <app-photos-list
+        [photos] = "photos"
+        (photoClick) = onPhotoClick($event)>
+    </app-photos-list>
+</app-infinite-scroll>
+
