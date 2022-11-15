@@ -13,6 +13,10 @@
 
     button {
         width: 150px;
+
+        &.active {
+            background-color: #8d0c7f;
+        }
     }
 }
 
