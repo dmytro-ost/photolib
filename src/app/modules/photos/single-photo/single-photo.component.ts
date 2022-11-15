@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { FAVORITES_ROUTE } from 'src/app/app-routes';
 import { Photo } from 'src/app/models/photo.model';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { PhotoService } from 'src/app/services/photo.service';
@@ -27,12 +28,12 @@ export class SinglePhotoComponent implements OnInit {
 
   public onRemove(photoId: string): void {
     const storage = this.localStorage.getData();
-    if (storage.hasOwnProperty('favorites')) {
+    if (storage.hasOwnProperty(FAVORITES_ROUTE)) {
       storage.favorites = (storage.favorites as string[]).filter(id => id !== photoId);
       this.localStorage.setData(storage);
     }
 
-    this.router.navigate(['favorites']);
+    this.router.navigate([FAVORITES_ROUTE]);
   }
 
 }

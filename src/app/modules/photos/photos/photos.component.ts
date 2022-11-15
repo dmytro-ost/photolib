@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { first } from 'rxjs';
+import { FAVORITES_ROUTE } from 'src/app/app-routes';
 import { Photo } from 'src/app/models/photo.model';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { PhotoService } from 'src/app/services/photo.service';
@@ -25,7 +26,7 @@ export class PhotosComponent implements OnInit {
 
   public onPhotoClick(photoId: string) {
     const storage = this.localStorage.getData();
-    if (!storage.hasOwnProperty('favorites')) {
+    if (!storage.hasOwnProperty(FAVORITES_ROUTE)) {
       storage.favorites = [];
     }
     storage.favorites.push(photoId);

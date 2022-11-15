@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { FAVORITES_ROUTE } from './app-routes';
 import { ContainerComponent } from './modules/container/container.component';
 
 const routes: Routes = [
@@ -12,7 +13,7 @@ const routes: Routes = [
         loadChildren: () => import('./modules/photos/photos.module').then(m => m.PhotosModule)
       },
       {
-        path: 'favorites',
+        path: FAVORITES_ROUTE,
         loadChildren: () => import('./modules/favorites/favorites.module').then(m => m.FavoritesModule)
       },
     ]
