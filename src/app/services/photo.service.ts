@@ -46,6 +46,21 @@ export class PhotoService {
       );
   }
 
+  public getFullPhotoById(id: string): Observable<Photo> {
+    this.spinnerService.show();
+    return of({
+      id: id,
+      url: `${this.baseUrl}/id/${id}/600/600`
+    }
+    )
+      .pipe(
+        delay(this.getRandomInt(200, 300)),
+        tap(() => {
+          this.spinnerService.hide();
+        })
+      );
+  }
+
   private getRandomInt(min: number, max: number): number {
     min = Math.ceil(min);
     max = Math.floor(max);
