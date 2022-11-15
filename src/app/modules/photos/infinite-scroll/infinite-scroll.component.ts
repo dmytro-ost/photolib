@@ -1,5 +1,6 @@
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   EventEmitter,
@@ -11,7 +12,8 @@ import {
 @Component({
   selector: 'app-infinite-scroll',
   templateUrl: './infinite-scroll.component.html',
-  styleUrls: ['./infinite-scroll.component.scss']
+  styleUrls: ['./infinite-scroll.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InfiniteScrollComponent implements AfterViewInit, OnDestroy {
   @Output() scrolled = new EventEmitter();
