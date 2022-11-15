@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, delay, tap } from 'rxjs';
+import { Observable, of, delay, tap, from, concatMap, map } from 'rxjs';
 import { Photo } from '../models/photo.model';
 import { SpinnerService } from './spinner.service';
 
@@ -30,8 +30,20 @@ export class PhotoService {
       );
   }
 
-  public getPhotoById(id: string): Observable<string> {
-    return of(`${this.baseUrl}/id/${id}/200/300`);
+  public getPhotoByIds(ids: string[]): Observable<Photo[]> {
+    this.spinnerService.show();
+    return of(ids.map((id) => {
+      return {
+        id: id,
+        url: `${this.baseUrl}/id/${id}/200/300`
+      }
+    }))
+      .pipe(
+        delay(this.getRandomInt(200, 300)),
+        tap(() => {
+          this.spinnerService.hide();
+        })
+      );
   }
 
   private getRandomInt(min: number, max: number): number {
