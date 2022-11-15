@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, delay, tap } from 'rxjs';
+import { Photo } from '../models/photo.model';
 import { SpinnerService } from './spinner.service';
 
 
@@ -13,9 +14,14 @@ export class PhotoService {
 
   constructor(private readonly spinnerService: SpinnerService) { }
 
-  public getPhotoList(quantity: number = this.PHOTO_LIST_SIZE): Observable<string[]> {
+  public getPhotoList(quantity: number = this.PHOTO_LIST_SIZE): Observable<Photo[]> {
     this.spinnerService.show();
-    return of(new Array(quantity).fill(0).map(() => `${this.baseUrl}/id/${this.currentId++}/200/300`))
+    return of(new Array(quantity).fill(0).map(() => {
+      return {
+        id: this.currentId.toString(),
+        url: `${this.baseUrl}/id/${this.currentId++}/200/300`
+      }
+    }))
       .pipe(
         delay(this.getRandomInt(200, 300)),
         tap(() => {

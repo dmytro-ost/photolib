@@ -1,0 +1,6 @@
+<div class="photos-list">
+    <img class="image" *ngFor="let photo of photos" width="200" height="300" 
+        [src]="photo.url"
+        [alt]="photo.id" 
+        (click)="onClick(photo.id)">
+</div>
