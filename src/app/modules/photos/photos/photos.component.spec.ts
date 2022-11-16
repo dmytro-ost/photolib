@@ -1,13 +1,15 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
-
+import { defer, of } from 'rxjs';
 import { PhotosComponent } from './photos.component';
+import { PhotoService } from 'src/app/services/photo.service';
 
 describe('PhotosComponent', () => {
   let component: PhotosComponent;
   let fixture: ComponentFixture<PhotosComponent>;
 
-  let localStorageService: LocalStorageService
+  let localStorageService: LocalStorageService;
+  let getPhotoListObservableSpy: jasmine.Spy;
 
   beforeEach(() => {
     const localStorageServiceStub = {
@@ -20,10 +22,21 @@ describe('PhotosComponent', () => {
       },
     };
 
+    let testPhotosArray = [
+      { id: '123', url: 'www.host.com/id/123/200/300' },
+      { id: '654', url: 'www.host2.com/id/654/200/300' }];
+
+    const photoServiceSpyObj = jasmine.createSpyObj('PhotoService', ['getPhotoList']);
+
+    getPhotoListObservableSpy = photoServiceSpyObj.getPhotoList.and.returnValue(
+      defer(() => of(testPhotosArray))
+    );
+
     TestBed.configureTestingModule({
       declarations: [PhotosComponent],
       providers: [
-        { provide: LocalStorageService, useValue: localStorageServiceStub }
+        { provide: LocalStorageService, useValue: localStorageServiceStub },
+        { provide: PhotoService, useValue: photoServiceSpyObj }
       ]
     });
 
@@ -51,6 +64,15 @@ describe('PhotosComponent', () => {
     const loadPhotosSpy = spyOn<any>(component, 'loadPhotos');
     component.onScrollDown();
     expect(loadPhotosSpy).toHaveBeenCalled();
+  });
+
+  it('should get photos via photoService.getPhotoList', (done: DoneFn) => {
+    fixture.detectChanges();
+    getPhotoListObservableSpy.calls.mostRecent().returnValue.subscribe(() => {
+      fixture.detectChanges();
+      expect(component.photos.length).toEqual(2);
+      done();
+    });
   });
 
 });
