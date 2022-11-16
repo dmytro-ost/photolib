@@ -2,9 +2,7 @@ import { DebugElement, Injectable } from '@angular/core';
 import { ComponentFixture, TestBed, inject } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NavigationExtras, Router } from '@angular/router';
-// import { RouterStub } from 'src/app/helpers/router-stubs';
 import { PhotoService } from 'src/app/services/photo.service';
-
 import { FavoritesComponent } from './favorites.component';
 
 @Injectable()
@@ -34,7 +32,6 @@ describe('FavoritesComponent', () => {
     fixture.detectChanges();
 
     el = fixture.debugElement.query(By.css('app-photos-list'));
-
   });
 
   it('should create', () => {
