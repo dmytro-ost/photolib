@@ -13,4 +13,16 @@ describe('SpinnerService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+
+  it(`should set 'visible' to 'false'`, () => {
+    service['visible'] = true;
+    service.hide();
+    expect(service['visible']).toBeFalse();
+  });
+
+  it(`should set 'visible' to 'true'`, () => {
+    service['visible'] = false;
+    service.show();
+    expect(service['visible']).toBeTrue();
+  });
 });
